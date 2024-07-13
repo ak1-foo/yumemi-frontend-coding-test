@@ -4,9 +4,12 @@
     "postCreateCommand": "npm install",
     "customizations": {
         "vscode": {
-            "settings": {},
+            "settings": {
+                "eslint.useFlatConfig": true
+            },
             "extensions": [
                 "bierner.markdown-preview-github-styles",
+                "dbaeumer.vscode-eslint",
                 "vue.volar"
             ]
         }
