@@ -5,11 +5,14 @@
     "customizations": {
         "vscode": {
             "settings": {
-                "eslint.useFlatConfig": true
+                "eslint.useFlatConfig": true,
+                "editor.defaultFormatter": "esbenp.prettier-vscode",
+                "editor.formatOnSave": true
             },
             "extensions": [
                 "bierner.markdown-preview-github-styles",
                 "dbaeumer.vscode-eslint",
+                "esbenp.prettier-vscode",
                 "vue.volar"
             ]
         }
