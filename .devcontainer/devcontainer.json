@@ -1,21 +1,21 @@
 {
-    "build": { "dockerfile": "Dockerfile" },
-    "forwardPorts": [3000],
-    "postCreateCommand": "npm install",
-    "customizations": {
-        "vscode": {
-            "settings": {
-                "eslint.useFlatConfig": true,
-                "editor.defaultFormatter": "esbenp.prettier-vscode",
-                "editor.formatOnSave": true
-            },
-            "extensions": [
-                "bierner.markdown-preview-github-styles",
-                "dbaeumer.vscode-eslint",
-                "esbenp.prettier-vscode",
-                "vue.volar"
-            ]
-        }
-    },
-    "remoteUser": "node"
+  "build": { "dockerfile": "Dockerfile" },
+  "forwardPorts": [3000],
+  "postCreateCommand": "npm install",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "eslint.useFlatConfig": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+      },
+      "extensions": [
+        "bierner.markdown-preview-github-styles",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "vue.volar"
+      ]
+    }
+  },
+  "remoteUser": "node"
 }

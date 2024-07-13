@@ -1,13 +1,17 @@
 # Git Rules
 
 ## branch name
+
 `prefix/your-branch-name`
 
 ## commit message
+
 `prefix: your commit message`
 
 ## prefix
+
 Follow [Angular.js/DEVELOPERS.md](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#type).
+
 - feat: A new feature
 - fix: A bug fix
 - docs: Documentation only changes
