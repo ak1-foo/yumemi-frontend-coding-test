@@ -1,8 +1,13 @@
+import type {
+  ResasPrefecturesApiResponse,
+  Prefecture,
+} from "~/types/prefectures";
+
 export default defineEventHandler(async () => {
   const resasApiKey: string = useRuntimeConfig().resasApiKey;
 
   try {
-    const response = await $fetch(
+    const response = await $fetch<ResasPrefecturesApiResponse>(
       "https://opendata.resas-portal.go.jp/api/v1/prefectures",
       {
         method: "GET",
@@ -12,9 +17,8 @@ export default defineEventHandler(async () => {
       },
     );
 
-    // DEBUG:
-    console.log(response.result);
-    return response.result;
+    const prefectures: Prefecture[] = response.result;
+    return prefectures;
   } catch (error) {
     throw createError({
       statusCode: 500,
