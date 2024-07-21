@@ -8,10 +8,19 @@ Repository for [フロントエンドコーディング試験 株式会社ゆめ
 
 Open this repository in devcontainer.
 
-And in devcontainer, run
+#### Install dependencies
 
 ```bash
 npm install
+```
+
+#### Register your RESAS API key
+
+```bash
+cp .env.example .env
+
+# edit .env file
+code .env
 ```
 
 ### Start Development Server

@@ -4,4 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxt/eslint"],
   srcDir: "src/",
+  runtimeConfig: {
+    resasApiKey: process.env.RESAS_API_KEY,
+  },
 });
