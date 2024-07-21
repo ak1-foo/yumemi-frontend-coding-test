@@ -8,6 +8,7 @@
       <ModulesModuleCheckboxLabel
         v-model="selectedPrefectures"
         :label="prefecture.prefName"
+        :value="prefecture.prefCode"
       />
     </div>
   </div>
@@ -16,6 +17,6 @@
 <script setup lang="ts">
 import type { Prefecture } from "~/types/prefectures";
 
-const selectedPrefectures = ref<string[]>([]);
+const selectedPrefectures = ref<number[]>([]);
 const { data: prefectures } = useFetch<Prefecture[]>("/api/prefectureNames");
 </script>

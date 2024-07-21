@@ -3,7 +3,7 @@
     <label class="checkbox-label">
       <AtomsAtomCheckbox
         v-model="checkedArray"
-        :value="prop.label"
+        :value="prop.value"
       />
       {{ prop.label }}
     </label>
@@ -13,8 +13,9 @@
 <script setup lang="ts">
 const prop = defineProps<{
   label: string;
+  value: string | number;
 }>();
-const checkedArray = defineModel<string[]>();
+const checkedArray = defineModel<string[] | number[]>();
 </script>
 
 <style scooped>

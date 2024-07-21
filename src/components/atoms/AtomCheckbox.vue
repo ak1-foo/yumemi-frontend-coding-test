@@ -9,8 +9,8 @@
 </template>
 
 <script setup lang="ts">
-const checked = defineModel<string[] | boolean>();
+const checked = defineModel<string[] | number[] | boolean>();
 const prop = defineProps<{
-  value?: string;
+  value?: string | number;
 }>();
 </script>
