@@ -1,6 +1,6 @@
 <template>
   <div>
-    selected = {{ selectedPrefectures }}
+    selected = {{ sortedSelectedPrefectures }}
     <div
       v-for="prefecture in prefectures"
       :key="prefecture.prefCode"
@@ -17,6 +17,11 @@
 <script setup lang="ts">
 import type { Prefecture } from "~/types/prefectures";
 
-const selectedPrefectures = ref<number[]>([]);
 const { data: prefectures } = useFetch<Prefecture[]>("/api/prefectureNames");
+
+const selectedPrefectures = ref<number[]>([]);
+const sortedSelectedPrefectures = computed<number[]>(() => {
+  // return ascending order list
+  return [...selectedPrefectures.value].sort((a, b) => a - b);
+});
 </script>
