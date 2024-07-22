@@ -2,8 +2,11 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
-  modules: ["@nuxt/eslint"],
+  modules: ["@nuxt/eslint", "@pinia/nuxt"],
   srcDir: "src/",
+  pinia: {
+    storesDirs: ["./src/stores/**"],
+  },
   runtimeConfig: {
     resasApiKey: process.env.RESAS_API_KEY,
   },
