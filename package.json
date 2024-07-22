@@ -16,6 +16,8 @@
     "fix": "npm run lint:fix && npm run format:fix"
   },
   "dependencies": {
+    "highcharts": "^11.4.6",
+    "highcharts-vue": "^2.0.1",
     "nuxt": "^3.12.3",
     "vue": "latest"
   },
