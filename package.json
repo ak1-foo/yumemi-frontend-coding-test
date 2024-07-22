@@ -16,9 +16,11 @@
     "fix": "npm run lint:fix && npm run format:fix"
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.5.1",
     "highcharts": "^11.4.6",
     "highcharts-vue": "^2.0.1",
     "nuxt": "^3.12.3",
+    "pinia": "^2.1.7",
     "vue": "latest"
   },
   "overrides": {
