@@ -21,6 +21,9 @@
     "nuxt": "^3.12.3",
     "vue": "latest"
   },
+  "overrides": {
+    "vue": "latest"
+  },
   "devDependencies": {
     "@nuxt/eslint": "^0.3.13",
     "prettier": "^3.3.3"
