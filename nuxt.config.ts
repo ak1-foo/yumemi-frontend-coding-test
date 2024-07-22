@@ -4,6 +4,9 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxt/eslint", "@pinia/nuxt"],
   srcDir: "src/",
+  pinia: {
+    storesDirs: ["./src/stores/**"],
+  },
   runtimeConfig: {
     resasApiKey: process.env.RESAS_API_KEY,
   },
