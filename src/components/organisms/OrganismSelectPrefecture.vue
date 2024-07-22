@@ -1,12 +1,12 @@
 <template>
   <div>
-    selected = {{ sortedSelectedPrefectures }}
+    DEBUG: selected = {{ stored.sortedSelectedPrefecturesCode }}
     <div
-      v-for="prefecture in prefectures"
+      v-for="prefecture in stored.prefectures"
       :key="prefecture.prefCode"
     >
       <ModulesModuleCheckboxLabel
-        v-model="selectedPrefectures"
+        v-model="stored.selectedPrefecturesCode"
         :label="prefecture.prefName"
         :value="prefecture.prefCode"
       />
@@ -15,13 +15,5 @@
 </template>
 
 <script setup lang="ts">
-import type { Prefecture } from "~/types/prefectures";
-
-const { data: prefectures } = useFetch<Prefecture[]>("/api/prefectureNames");
-
-const selectedPrefectures = ref<number[]>([]);
-const sortedSelectedPrefectures = computed<number[]>(() => {
-  // return ascending order list
-  return [...selectedPrefectures.value].sort((a, b) => a - b);
-});
+const stored = usePrefectureStore();
 </script>
