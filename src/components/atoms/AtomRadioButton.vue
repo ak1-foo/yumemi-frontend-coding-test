@@ -1,10 +1,10 @@
 <template>
   <div>
     <input
+      v-model="checkedValue"
       type="radio"
       :name="prop.name"
       :value="prop.value"
-      @click="checkedValue = prop.value"
     />
   </div>
 </template>
