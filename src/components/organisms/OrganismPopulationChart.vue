@@ -13,6 +13,8 @@ import type {
   YearlyPopulationData,
 } from "~/types/population";
 
+const storedPopulationType = usePopulationTypeStore();
+
 // TODO: sample
 const { data: hokkaidoData } = useFetch<PopulationResult[]>(
   "/api/populationByPrefecture",
@@ -30,7 +32,10 @@ const chartOptions = computed(() => {
   }
   return {
     title: {
-      text: "北海道 総人口",
+      text:
+        "北海道 " +
+        hokkaidoData.value[storedPopulationType.selectedPopulationTypeCode]
+          .label,
     },
     lang: {
       numericSymbols: undefined,
@@ -55,11 +60,10 @@ const chartOptions = computed(() => {
     },
     series: [
       {
-        name: hokkaidoData.value[0].label,
-        data: hokkaidoData.value[0].data.map((item: YearlyPopulationData) => [
-          item.year,
-          item.value,
-        ]),
+        name: "北海道",
+        data: hokkaidoData.value[
+          storedPopulationType.selectedPopulationTypeCode
+        ].data.map((item: YearlyPopulationData) => [item.year, item.value]),
       },
     ],
   };
