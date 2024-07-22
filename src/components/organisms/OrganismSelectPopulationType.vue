@@ -1,12 +1,12 @@
 <template>
   <div>
-    DEGUG: populationType = {{ selectedPopulationTypeID }}
+    DEGUG: populationType = {{ stored.selectedPopulationTypeCode }}
     <div
-      v-for="(label, index) in populationType"
+      v-for="(label, index) in stored.populationType"
       :key="index"
     >
       <ModulesModuleRadioButtonLabel
-        v-model="selectedPopulationTypeID"
+        v-model="stored.selectedPopulationTypeCode"
         name="populationType"
         :label="label"
         :value="index"
@@ -16,11 +16,5 @@
 </template>
 
 <script setup lang="ts">
-const selectedPopulationTypeID = ref<number>(0);
-const populationType = {
-  0: "総人口",
-  1: "年少人口",
-  2: "生産年齢人口",
-  3: "老年人口",
-};
+const stored = usePopulationTypeStore();
 </script>
