@@ -16,7 +16,7 @@ import { Chart } from "highcharts-vue";
 import type {
   PopulationResult,
   YearlyPopulationData,
-  PopulationResultWithPrefecture
+  PopulationResultWithPrefecture,
 } from "~/types/population";
 
 const storedPopulationType = usePopulationTypeStore();
@@ -38,12 +38,14 @@ const { data: hokkaidoData } = useFetch<PopulationResult[]>(
   },
 );
 
-const selectedPopulationData: Ref<PopulationResultWithPrefecture[]> = ref([])
-watchEffect(async()=>{
+const selectedPopulationData: Ref<PopulationResultWithPrefecture[]> = ref([]);
+watchEffect(async () => {
   // `sortedSelectedPrefecturesCode`から選択された都道府県のコードを取得
   const selectedCodes = storedPrefecture.sortedSelectedPrefecturesCode;
 
-  if (storedPrefecture.prefectures == null) { return }
+  if (storedPrefecture.prefectures == null) {
+    return;
+  }
 
   // selectedCodesに対応する Prefecture を取得
   const selectedPrefectures = storedPrefecture.prefectures.filter((pref) =>
@@ -58,20 +60,20 @@ watchEffect(async()=>{
   console.log("current populationdata", storedPopulationData.populationData);
 
   // `populationData`から選択されたコードに一致するデータだけをフィルタリング
-  selectedPopulationData.value =  (storedPopulationData.populationData.filter((prefData) =>
-    selectedCodes.includes(prefData.prefecture.prefCode),
-  ))
-})
+  selectedPopulationData.value = storedPopulationData.populationData.filter(
+    (prefData) => selectedCodes.includes(prefData.prefecture.prefCode),
+  );
+});
 
 const chartOptions = computed(() => {
   if (!hokkaidoData) {
     return {};
   }
-  const series = storedPopulationData.populationData.map(prefData => ({
+  const series = storedPopulationData.populationData.map((prefData) => ({
     name: prefData.prefecture.prefName,
-    data: prefData.data.flatMap(result =>
-      result.data.map((item: YearlyPopulationData) => [item.year, item.value])
-    )
+    data: prefData.data.flatMap((result) =>
+      result.data.map((item: YearlyPopulationData) => [item.year, item.value]),
+    ),
   }));
   return {
     title: {
@@ -101,7 +103,7 @@ const chartOptions = computed(() => {
         },
       },
     },
-    series: series
+    series: series,
   };
 });
 </script>

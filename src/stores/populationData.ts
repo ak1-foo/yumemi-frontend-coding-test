@@ -17,11 +17,11 @@ export const usePopulationDataStore = defineStore("populationData", () => {
     let fetchTargetPrefecture: Prefecture;
     for (const prefecture of prefectures) {
       const isExist = populationData.value.some(
-        (data) => data.prefecture.prefCode === prefecture.prefCode
+        (data) => data.prefecture.prefCode === prefecture.prefCode,
       );
       if (!isExist) {
         allExist = false;
-        fetchTargetPrefecture = prefecture
+        fetchTargetPrefecture = prefecture;
         break; // 一つでも存在しなければループを抜ける
       }
     }
@@ -40,7 +40,7 @@ export const usePopulationDataStore = defineStore("populationData", () => {
         {
           method: "GET",
           query: {
-            prefCode: fetchTargetPrefecture.prefCode
+            prefCode: fetchTargetPrefecture.prefCode,
           },
         },
       );
