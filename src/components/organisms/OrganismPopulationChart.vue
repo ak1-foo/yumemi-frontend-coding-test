@@ -30,12 +30,9 @@ watchEffect(async () => {
   const selectedPrefectures = storedPrefecture.prefectures.filter((pref) =>
     selectedCodes.includes(pref.prefCode),
   );
-  console.log("selectedPrefectures", selectedPrefectures);
 
   // populationdataを更新
   await storedPopulationData.updatePopulationData(selectedPrefectures);
-
-  console.log("current populationdata", storedPopulationData.populationData);
 
   // `populationData`から選択されたコードに一致するデータだけをフィルタリング
   selectedPopulationData.value = storedPopulationData.populationData.filter(

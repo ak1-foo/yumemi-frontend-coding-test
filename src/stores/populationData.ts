@@ -9,10 +9,7 @@ export const usePopulationDataStore = defineStore("populationData", () => {
   const populationData: Ref<PopulationResultWithPrefecture[]> = ref([]);
 
   const updatePopulationData = async (prefectures: Prefecture[]) => {
-    console.log("prefectures=", prefectures);
-
     let allExist = true;
-
     // `prefectures`の各`prefCode`が`populationData`に存在するか確認
     let fetchTargetPrefecture: Prefecture;
     for (const prefecture of prefectures) {
@@ -25,15 +22,11 @@ export const usePopulationDataStore = defineStore("populationData", () => {
         break; // 一つでも存在しなければループを抜ける
       }
     }
-
-    console.log("13 allExist = ", allExist);
-
     // `prefectures`の全ての`prefCode`が`populationData`に存在する場合は処理を終了
     if (allExist) {
       return;
     }
 
-    console.log("25 allExist = ", allExist);
     try {
       const fetchedPopulationData: PopulationResult[] = await $fetch(
         "/api/populationByPrefecture",
