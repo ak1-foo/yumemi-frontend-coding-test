@@ -9,28 +9,57 @@
 <script setup lang="ts">
 import { Chart } from "highcharts-vue";
 import type {
-  PopulationResult,
   YearlyPopulationData,
+  PopulationResultWithPrefecture,
 } from "~/types/population";
 
-// TODO: sample
-const { data: hokkaidoData } = useFetch<PopulationResult[]>(
-  "/api/populationByPrefecture",
-  {
-    method: "GET",
-    query: {
-      prefCode: 1, // Hokkaido
-    },
-  },
-);
+const storedPopulationType = usePopulationTypeStore();
+const storedPrefecture = usePrefectureStore();
+const storedPopulationData = usePopulationDataStore();
+
+const selectedPopulationData: Ref<PopulationResultWithPrefecture[]> = ref([]);
+watchEffect(async () => {
+  // `sortedSelectedPrefecturesCode`から選択された都道府県のコードを取得
+  const selectedCodes = storedPrefecture.sortedSelectedPrefecturesCode;
+
+  if (storedPrefecture.prefectures == null) {
+    return;
+  }
+
+  // selectedCodesに対応する Prefecture を取得
+  const selectedPrefectures = storedPrefecture.prefectures.filter((pref) =>
+    selectedCodes.includes(pref.prefCode),
+  );
+
+  // populationdataを更新
+  await storedPopulationData.updatePopulationData(selectedPrefectures);
+
+  // `populationData`から選択されたコードに一致するデータだけをフィルタリング
+  selectedPopulationData.value = storedPopulationData.populationData.filter(
+    (prefData) => selectedCodes.includes(prefData.prefecture.prefCode),
+  );
+});
 
 const chartOptions = computed(() => {
-  if (!hokkaidoData) {
+  if (!storedPopulationData.populationData) {
     return {};
   }
+  const series = selectedPopulationData.value.map((prefData) => {
+    const selectedData =
+      prefData.data[storedPopulationType.selectedPopulationTypeCode];
+    return {
+      name: prefData.prefecture.prefName,
+      data: selectedData.data.map((item: YearlyPopulationData) => [
+        item.year,
+        item.value,
+      ]),
+    };
+  });
   return {
     title: {
-      text: "北海道 総人口",
+      text: storedPopulationType.populationType[
+        storedPopulationType.selectedPopulationTypeCode
+      ],
     },
     lang: {
       numericSymbols: undefined,
@@ -53,15 +82,7 @@ const chartOptions = computed(() => {
         },
       },
     },
-    series: [
-      {
-        name: hokkaidoData.value[0].label,
-        data: hokkaidoData.value[0].data.map((item: YearlyPopulationData) => [
-          item.year,
-          item.value,
-        ]),
-      },
-    ],
+    series: series,
   };
 });
 </script>
