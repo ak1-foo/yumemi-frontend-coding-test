@@ -81,10 +81,8 @@ const chartOptions = computed(() => {
   });
   return {
     title: {
-      text:
-        "北海道 " +
-        hokkaidoData.value[storedPopulationType.selectedPopulationTypeCode]
-          .label,
+      text: hokkaidoData.value[storedPopulationType.selectedPopulationTypeCode]
+        .label,
     },
     lang: {
       numericSymbols: undefined,
