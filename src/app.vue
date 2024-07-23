@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <h1 class="title">株式会社ゆめみ フロントエンドコーディング試験</h1>
+    <OrganismsOrganismHeader />
     <OrganismsOrganismSelectPrefecture />
     <hr />
     <OrganismsOrganismSelectPopulationType />
@@ -12,8 +12,5 @@
 <style scoped>
 .main {
   max-width: 800px;
-}
-.title {
-  text-align: center;
 }
 </style>
