@@ -68,12 +68,17 @@ const chartOptions = computed(() => {
   if (!hokkaidoData) {
     return {};
   }
-  const series = storedPopulationData.populationData.map((prefData) => ({
-    name: prefData.prefecture.prefName,
-    data: prefData.data.flatMap((result) =>
-      result.data.map((item: YearlyPopulationData) => [item.year, item.value]),
-    ),
-  }));
+  const series = storedPopulationData.populationData.map((prefData) => {
+    const selectedData =
+      prefData.data[storedPopulationType.selectedPopulationTypeCode];
+    return {
+      name: prefData.prefecture.prefName,
+      data: selectedData.data.map((item: YearlyPopulationData) => [
+        item.year,
+        item.value,
+      ]),
+    };
+  });
   return {
     title: {
       text:
