@@ -3,6 +3,11 @@
     <ClientOnly>
       <Chart :options="chartOptions" />
     </ClientOnly>
+    selectedPopulationData = {{ selectedPopulationData }}
+    <button @click="storedPopulationData.updatePopulationData(iwatepref)">
+      岩手を足す
+    </button>
+    cacheddata = {{ storedPopulationData.populationData }}
   </div>
 </template>
 
@@ -11,9 +16,16 @@ import { Chart } from "highcharts-vue";
 import type {
   PopulationResult,
   YearlyPopulationData,
+  PopulationResultWithPrefecture
 } from "~/types/population";
 
 const storedPopulationType = usePopulationTypeStore();
+const storedPrefecture = usePrefectureStore();
+const storedPopulationData = usePopulationDataStore();
+
+const iwatepref = computed(() => {
+  return storedPrefecture.prefectures.find((pref) => pref.prefCode === 3);
+});
 
 // TODO: sample
 const { data: hokkaidoData } = useFetch<PopulationResult[]>(
@@ -26,10 +38,41 @@ const { data: hokkaidoData } = useFetch<PopulationResult[]>(
   },
 );
 
+const selectedPopulationData: Ref<PopulationResultWithPrefecture[]> = ref([])
+watchEffect(async()=>{
+  // `sortedSelectedPrefecturesCode`から選択された都道府県のコードを取得
+  const selectedCodes = storedPrefecture.sortedSelectedPrefecturesCode;
+
+  if (storedPrefecture.prefectures == null) { return }
+
+  // selectedCodesに対応する Prefecture を取得
+  const selectedPrefectures = storedPrefecture.prefectures.filter((pref) =>
+    selectedCodes.includes(pref.prefCode),
+  );
+  console.log("selectedPrefectures", selectedPrefectures);
+
+  // populationdataを更新
+  const promisstop =
+    await storedPopulationData.updatePopulationData(selectedPrefectures);
+
+  console.log("current populationdata", storedPopulationData.populationData);
+
+  // `populationData`から選択されたコードに一致するデータだけをフィルタリング
+  selectedPopulationData.value =  (storedPopulationData.populationData.filter((prefData) =>
+    selectedCodes.includes(prefData.prefecture.prefCode),
+  ))
+})
+
 const chartOptions = computed(() => {
   if (!hokkaidoData) {
     return {};
   }
+  const series = storedPopulationData.populationData.map(prefData => ({
+    name: prefData.prefecture.prefName,
+    data: prefData.data.flatMap(result =>
+      result.data.map((item: YearlyPopulationData) => [item.year, item.value])
+    )
+  }));
   return {
     title: {
       text:
@@ -58,14 +101,7 @@ const chartOptions = computed(() => {
         },
       },
     },
-    series: [
-      {
-        name: "北海道",
-        data: hokkaidoData.value[
-          storedPopulationType.selectedPopulationTypeCode
-        ].data.map((item: YearlyPopulationData) => [item.year, item.value]),
-      },
-    ],
+    series: series
   };
 });
 </script>
