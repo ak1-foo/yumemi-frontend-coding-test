@@ -57,7 +57,7 @@ const chartOptions = computed(() => {
   if (!storedPopulationData.populationData) {
     return {};
   }
-  const series = storedPopulationData.populationData.map((prefData) => {
+  const series = selectedPopulationData.value.map((prefData) => {
     const selectedData =
       prefData.data[storedPopulationType.selectedPopulationTypeCode];
     return {
