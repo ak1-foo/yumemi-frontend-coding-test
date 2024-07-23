@@ -27,17 +27,6 @@ const iwatepref = computed(() => {
   return storedPrefecture.prefectures.find((pref) => pref.prefCode === 3);
 });
 
-// TODO: sample
-const { data: hokkaidoData } = useFetch<PopulationResult[]>(
-  "/api/populationByPrefecture",
-  {
-    method: "GET",
-    query: {
-      prefCode: 1, // Hokkaido
-    },
-  },
-);
-
 const selectedPopulationData: Ref<PopulationResultWithPrefecture[]> = ref([]);
 watchEffect(async () => {
   // `sortedSelectedPrefecturesCode`から選択された都道府県のコードを取得
@@ -65,7 +54,7 @@ watchEffect(async () => {
 });
 
 const chartOptions = computed(() => {
-  if (!hokkaidoData) {
+  if (!storedPopulationData.populationData) {
     return {};
   }
   const series = storedPopulationData.populationData.map((prefData) => {
@@ -81,8 +70,9 @@ const chartOptions = computed(() => {
   });
   return {
     title: {
-      text: hokkaidoData.value[storedPopulationType.selectedPopulationTypeCode]
-        .label,
+      text: storedPopulationType.populationType[
+        storedPopulationType.selectedPopulationTypeCode
+      ],
     },
     lang: {
       numericSymbols: undefined,
