@@ -1,6 +1,5 @@
 <template>
   <div>
-    DEGUG: populationType = {{ stored.selectedPopulationTypeCode }}
     <div
       v-for="(label, index) in stored.populationType"
       :key="index"

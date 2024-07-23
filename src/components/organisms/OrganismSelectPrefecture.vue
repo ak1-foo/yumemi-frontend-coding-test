@@ -1,6 +1,5 @@
 <template>
   <div>
-    DEBUG: selected = {{ stored.sortedSelectedPrefecturesCode }}
     <div
       v-for="prefecture in stored.prefectures"
       :key="prefecture.prefCode"
