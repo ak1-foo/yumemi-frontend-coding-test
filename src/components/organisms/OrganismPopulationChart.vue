@@ -3,18 +3,12 @@
     <ClientOnly>
       <Chart :options="chartOptions" />
     </ClientOnly>
-    selectedPopulationData = {{ selectedPopulationData }}
-    <button @click="storedPopulationData.updatePopulationData(iwatepref)">
-      岩手を足す
-    </button>
-    cacheddata = {{ storedPopulationData.populationData }}
   </div>
 </template>
 
 <script setup lang="ts">
 import { Chart } from "highcharts-vue";
 import type {
-  PopulationResult,
   YearlyPopulationData,
   PopulationResultWithPrefecture,
 } from "~/types/population";
@@ -22,10 +16,6 @@ import type {
 const storedPopulationType = usePopulationTypeStore();
 const storedPrefecture = usePrefectureStore();
 const storedPopulationData = usePopulationDataStore();
-
-const iwatepref = computed(() => {
-  return storedPrefecture.prefectures.find((pref) => pref.prefCode === 3);
-});
 
 const selectedPopulationData: Ref<PopulationResultWithPrefecture[]> = ref([]);
 watchEffect(async () => {
