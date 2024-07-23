@@ -54,8 +54,7 @@ watchEffect(async () => {
   console.log("selectedPrefectures", selectedPrefectures);
 
   // populationdataを更新
-  const promisstop =
-    await storedPopulationData.updatePopulationData(selectedPrefectures);
+  await storedPopulationData.updatePopulationData(selectedPrefectures);
 
   console.log("current populationdata", storedPopulationData.populationData);
 
