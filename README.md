@@ -4,7 +4,7 @@ Repository for [フロントエンドコーディング試験 株式会社ゆめ
 
 Deployed server: [http://52.195.157.221/](http://52.195.157.221/)
 
-My dialy: [My GitHub Gist](https://gist.github.com/ak1-foo/7c6b338dfa867d9ed679398ecd00be41)
+My diary: [My GitHub Gist](https://gist.github.com/ak1-foo/7c6b338dfa867d9ed679398ecd00be41)
 
 ## For developers
 
